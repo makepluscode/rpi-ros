@@ -36,46 +36,56 @@ CONF_SWAPSIZE=1024
 
 2. Restart the service
 ```
-$ sudo /etc/init.d/dphys-swapfile stop
-$ sudo /etc/init.d/dphys-swapfile start
+sudo /etc/init.d/dphys-swapfile stop
+sudo /etc/init.d/dphys-swapfile start
 ```
 
 ### STEP2. Install ROS Packages and Dependencies
-```
-1. Firstly install dirmngr
-$ sudo apt-get install dirmngr
 
-$ sudo apt-get update
-$ sudo apt-get upgrade
+1. Firstly install dirmngr
+```
+sudo apt-get install dirmngr
+
+sudo apt-get update
+sudo apt-get upgrade
+```
 
 2. Install tools
-$ sudo apt-get install python-rosdep python-rosinstall-generator 
+```
+sudo apt-get install python-rosdep python-rosinstall-generator 
+```
 
 3. Initializing rosdep
-$ sudo rosdep init
-$ rosdep update
+```
+sudo rosdep init
+rosdep update
 ```
 
 ### STEP3. Build and Install ROS
+
 1. Create workspace
 ```
 $ mkdir -p ~/ros_catkin_ws
-$ cd ~/ros_catkin_ws
+cd ~/ros_catkin_ws
+```
 
 2. Install ROS Packages
-$ rosinstall_generator desktop --rosdistro kinetic --deps --wet-only --tar > kinetic-desktop-wet.rosinstall
-$ wstool init src kinetic-desktop-wet.rosinstall
+```
+rosinstall_generator desktop --rosdistro kinetic --deps --wet-only --tar > kinetic-desktop-wet.rosinstall
+wstool init src kinetic-desktop-wet.rosinstall
+```
 
 3. Make sure to check all dependencies have been installed.
-$ rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
+```
+rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
 ```
 
 4. Build ROS
 ```
-$ sudo mkdir -p /opt/ros/kinetic
-$ sudo chown pi:pi /opt/ros/kinetic
-$ ./src/catkin/bin/catkin_make_isolated -j2 --install --install-space /opt/ros/kinetic -D
+sudo mkdir -p /opt/ros/kinetic
+sudo chown pi:pi /opt/ros/kinetic
+sudo ./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release --install-space /opt/ros/kinetic
 ```
 
-### STEP4. Test ROS
+## ROS Test : Hello Example
 
